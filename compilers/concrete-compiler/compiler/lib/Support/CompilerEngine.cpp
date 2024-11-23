@@ -837,7 +837,7 @@ const std::string CompilerEngine::Library::LINKER_SHARED_OPT =
     "-o ";
 const std::string CompilerEngine::Library::DOT_SHARED_LIB_EXT = ".dylib";
 #else // Linux
-const std::string CompilerEngine::Library::LINKER_SHARED_OPT = " --shared -o ";
+const std::string CompilerEngine::Library::LINKER_SHARED_OPT = " --shared -L /root/new/concrete/compilers/concrete-compiler/compiler/build/lib -lConcretelangRuntime -lLLVM-17git -o ";
 const std::string CompilerEngine::Library::DOT_SHARED_LIB_EXT = ".so";
 #endif
 const std::string CompilerEngine::Library::AR = "ar";
