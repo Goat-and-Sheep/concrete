@@ -141,6 +141,17 @@ pub unsafe extern "C" fn concrete_cpu_crypto_secure_random_128(u128: *mut Uint12
             }
         }
     }
+    #[cfg(all(target_os = "linux", target_arch = "aarch64"))]
+    {
+        use libc::{c_void,c_uint};
+        use libc::getrandom;
+        const GRND_NONBLOCK: c_uint = 0x0001;
+        let result = unsafe { getrandom(buf.as_mut_ptr() as *mut c_void, 16, GRND_NONBLOCK) };
+        if result == 16 {
+            return 1;
+        }
+    }
+    
     if let Ok(mut random) = std::fs::File::open("/dev/random") {
         if let Ok(16) = random.read(buf) {
             return -1;
